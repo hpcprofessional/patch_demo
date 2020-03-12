@@ -5,8 +5,8 @@
 
 PROJECT=$1
 GIT_BRANCH=$2
-GIT_USER=spp@unixsa.net
-GIT_NAME='Stephen P. Potter'
+GIT_USER=paul@puppet.com
+GIT_NAME='Paul Anderson'
 
 if [ "x${PROJECT}" == "x" ];
 then
@@ -18,20 +18,25 @@ then
 	GIT_BRANCH=development
 fi
 
-CR_BASE="${HOME}/patch_demo/files"
-CR_WORK="${HOME}/${PROJECT}/control-repo"
+#PATCH_DEMO="${HOME}/patch_demo"
+PATCH_DEMO="/Users/pka/Documents/Work/git/patch_demo"
+PATCH_DEMO_FILES="${PATCH_DEMO}/files"
+PROJECT_DIR="/Users/pka/Deocuments/Work/git/$PROJECT"
+CONTROL_REPO="${PROJECT_DIR}/control-repo"
 
 # Setup code in control-repo
 #Clone git instance 
-mkdir ~/${PROJECT}
-cd ~/${PROJECT}
+if [[ ! -d $PROJECT_DIR ]]; then 
+  mkdir -p $PROJECT_DIR
+fi
+cd $PROJECT_DIR
 #echo "https://root:PuppetClassroomGitlabForYou@${PROJECT}-gitlab.classroom.puppet.com" >> ~/.git-credentials
 git clone https://${PROJECT}-gitlab.classroom.puppet.com/puppet/control-repo.git
 git config --global user.email ${GIT_USER}
 git config --global user.name "${GIT_NAME}"
 git config --global credential.helper store
 
-cd ${CR_WORK}
+cd ${CONTROL_REPO}
 
 git checkout -b ${GIT_BRANCH}
 git push origin ${GIT_BRANCH}
@@ -61,23 +66,23 @@ read -rsp $"Press any key to continue..." -n1 key
 #	traggiccode-wsusserver 1.1.2
 #	noma4i-windows_updates 0.3.0
 #	puppetlabs-wsus_client 3.1.0
-PFILE_SRC="${CR_BASE}/Puppetfile"
-PFILE_WORK="${CR_WORK}/Puppetfile"
+PFILE_SRC="${PATCH_DEMO_FILES}/Puppetfile"
+PFILE_WORK="${CONTROL_REPO}/Puppetfile"
 cp $PFILE_SRC $PFILE_WORK
 
-PROFILE_DIR="${CR_WORK}/site-modules/profile/manifests"
+PROFILE_DIR="${CONTROL_REPO}/site-modules/profile/manifests"
 #Add profile::platform::baseline::windows::patch_mgmt (.pp file) from blog
 PROFILE_WIN_DIR="platform/baseline/windows"
-cp ${CR_BASE}/patch_mgmt.pp ${PROFILE_DIR}/${PROFILE_WIN_DIR}/
+cp ${PATCH_DEMO_FILES}/patch_mgmt.pp ${PROFILE_DIR}/${PROFILE_WIN_DIR}/
 
 #Add patch_mgmt to profile/platform/baseline/windows.pp
-cp ${CR_BASE}/windows.pp ${PROFILE_DIR}/platform/baseline/
+cp ${PATCH_DEMO_FILES}/windows.pp ${PROFILE_DIR}/platform/baseline/
 
 #Add profile::app:wsus (.pp file) from blog
-cp ${CR_BASE}/wsus.pp ${PROFILE_DIR}/app/
+cp ${PATCH_DEMO_FILES}/wsus.pp ${PROFILE_DIR}/app/
 
 #Commit to git
-cd ${CR_WORK}
+cd ${CONTROL_REPO}
 git add .
 git diff
 git commit -m "Added patch_mgmt stuff"
@@ -95,9 +100,9 @@ Create Windows Prod environment group under Production
 read -rsp $"Press any key to continue..." -n1 key
 echo "
 
-Create WSUS environment under Windows Prod
+Create WSUS environment under Windows Prod 
 	pin win0 node as rule
-	add class profile::app:wsus
+  add class profile::app:wsus (it may be necessary to refresh class definitions)
 	run Puppet and take a coffee break as WSUS setup is completed (about 20 minutes)
 "
 
