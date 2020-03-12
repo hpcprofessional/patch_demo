@@ -1,5 +1,6 @@
 This is a pre-canned procedure for setting up a Windows patching demo based on Kevin Reeuwijk's blog at
-https://puppet.com/blog/how-automate-windows-patching-puppet/
+https://puppet.com/blog/how-automate-windows-patching-puppet/. The process of setting up this demo requires
+approximately 4 hours, primarily due to the installation time of WSUS and the first WSUS synchronization.
 
 The patch_demo_setup.sh script will automate many parts of the demo and prompt you with the steps and procedures
 that need to be done manually.  Change the GIT_USER and GIT_NAME before using the script then run the script with 
