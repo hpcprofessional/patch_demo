@@ -103,7 +103,7 @@ echo "
 Create WSUS environment under Windows Prod 
 	pin win0 node as rule
   add class profile::app:wsus (it may be necessary to refresh class definitions)
-	run Puppet and take a coffee break as WSUS setup is completed (about 20 minutes)
+	run Puppet and take a coffee break as WSUS setup is completed (about 20 - 25 minutes)
 "
 
 read -rsp $"Press any key to continue after confirming WSUS setup is completed without errors..." -n1 key
