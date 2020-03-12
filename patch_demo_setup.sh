@@ -26,6 +26,7 @@ CR_WORK="${HOME}/${PROJECT}/control-repo"
 mkdir ~/${PROJECT}
 cd ~/${PROJECT}
 #echo "https://root:PuppetClassroomGitlabForYou@${PROJECT}-gitlab.classroom.puppet.com" >> ~/.git-credentials
+echo "If prompted for credentials, see https://github.com/puppetlabs/courseware-lms-terraform/wiki/2.-Logging-into-your-Demo"
 git clone https://${PROJECT}-gitlab.classroom.puppet.com/puppet/control-repo.git
 git config --global user.email ${GIT_USER}
 git config --global user.name "${GIT_NAME}"
