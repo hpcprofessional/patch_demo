@@ -110,6 +110,7 @@ read -rsp $"Press any key to continue after confirming WSUS setup is completed w
 echo "
 
 on win0, go into WSUS and force a sync to ensure patches are updated, take another break (could be hours)"
+echo "for more information: https://docs.microsoft.com/en-us/windows-server/administration/windows-server-update-services/manage/setting-up-update-synchronizations#to-synchronize-your-wsus-server-immediately"
 
 read -rsp $"Press any key to continue after confirming WSUS synchronization is completed without errors..." -n1 key
 echo "
