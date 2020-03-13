@@ -31,6 +31,11 @@ if [[ ! -d $PROJECT_DIR ]]; then
 fi
 cd $PROJECT_DIR
 #echo "https://root:PuppetClassroomGitlabForYou@${PROJECT}-gitlab.classroom.puppet.com" >> ~/.git-credentials
+echo "
+
+If prompted for git credentials, use gitlab admin from this URL:
+https://github.com/puppetlabs/courseware-lms-terraform/wiki/2.-Logging-into-your-Demo
+"
 git clone https://${PROJECT}-gitlab.classroom.puppet.com/puppet/control-repo.git
 git config --global user.email ${GIT_USER}
 git config --global user.name "${GIT_NAME}"
