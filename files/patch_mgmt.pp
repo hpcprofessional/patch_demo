@@ -63,5 +63,6 @@ class profile::platform::baseline::windows::patch_mgmt(
       maintwindow => 'patch_window'
     }
   }
+  #Trivial Change
 
 }

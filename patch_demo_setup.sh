@@ -15,13 +15,13 @@ then
 fi
 if [ "x${GIT_BRANCH}" == "x" ];
 then
-	GIT_BRANCH=development
+	GIT_BRANCH=master
 fi
 
 #PATCH_DEMO="${HOME}/patch_demo"
 PATCH_DEMO="/Users/pka/Documents/Work/git/patch_demo"
 PATCH_DEMO_FILES="${PATCH_DEMO}/files"
-PROJECT_DIR="/Users/pka/Deocuments/Work/git/$PROJECT"
+PROJECT_DIR="/Users/pka/Documents/Work/git/$PROJECT"
 CONTROL_REPO="${PROJECT_DIR}/control-repo"
 
 # Setup code in control-repo
@@ -48,7 +48,7 @@ git push origin ${GIT_BRANCH}
 
 echo "
 
-Log into CD4PE and create a Pipeline for the Development branch:
+(ORIGINAL) Log into CD4PE and create a Pipeline for the Development branch:
 	Go to Workspaces/Demo
 	Go to Control Repos/control-repo
 	Click on 'Add Pipeline' (blue Philips head icon)
@@ -63,6 +63,38 @@ Log into CD4PE and create a Pipeline for the Development branch:
 	Leave the default parameters and timeout'
 	Click 'Add Deployment to Stage'
 	Click 'Done' after the success notice
+"
+#TODO: Add something smart about branch, e.g. production
+echo "
+
+(Streamlined) Log into CD4PE and complete the Master pipeline:
+	Go to Workspaces/Demo
+	Go to Control Repos/control-repo
+  Verify you're on the Master pipeline (with Pipeline Stage 1 having 4 jobs)
+  Click '+ Add stage'
+  In the 'Add new stage' dialog:
+    - Leave Stage Name Blank
+    - Leave Select Item alone ('Deployment')
+    - Leave Puppet Enterprise Instance Alone
+    - Select All Environments node group
+    - Select the Direct Deployment policy
+    - Leave parameters and timeout alone
+    - Click 'Add Stage'
+  In the 'Success for stage: 2' dialog
+    - Click 'Add another stage...'
+    - Leave Stage Name Blank
+    - Change 'Select Item' from 'Deployment' to 'Impact Analysis'
+    - Select Defaults ('Compile up to 10 node catalogs at a time', 'run for all environments)'
+    - Click 'Add Impact Analysis'
+  In the 'Success for stage: 3' dialog
+    - Click 'Done'
+  To the right of any Pipeline Stage, there is an elipsis menu '...' Click one of them.
+    - Reorder Pipeline to this:
+      Pipeline Stage 1: Static code check jobs (stays put)
+      Pipeline Stage 2: Impact Analysis: All Environments
+      Pipeline Stage 3: Direct deployment policy, my-pe--master, production
+    - Save Changes
+    - Done
 "
 
 read -rsp $"Press any key to continue..." -n1 key
